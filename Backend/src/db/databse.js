@@ -1,12 +1,4 @@
- 
+import { PrismaClient } from "../generated/prisma/index.js";
 
-
- export async function connectDB(){
-    try {
-        
-    } catch (error) {
-        console.log("ERROR:", error);
-        process.exit(1)
-        
-    }
- }
+const prisma =new PrismaClient()
+export {prisma}
