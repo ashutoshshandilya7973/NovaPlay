@@ -15,13 +15,39 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username      String?
-  fullname  String?
-  avatar    String?
-  coverImage String?
-  password   String
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  name          String?
+  password      String
   refereshToken String?
-  createdAt DateTime @default(now())
+  purchase      Purchase[]
+  createdAt     DateTime @default(now())
+}
+
+model Course_creator{
+  id Int @id @default(autoincrement())
+  name   String
+  email String
+  password String
+  refereshToken String?
+  courses Courses[]
+}
+
+model Courses{
+  id   Int @id @default(autoincrement())
+  name String
+  description String
+  price Int
+  imageUrl String
+  isUploaded Boolean @default(true)
+  creater_id Int 
+  creator Course_creator @relation(fields: [creater_id],references: [id])
+  purchase Purchase[]
+}
+model Purchase{
+  id   Int @id @default(autoincrement())
+  userId  Int 
+  user User @relation(fields: [userId] ,references: [id])
+  courseId Int
+  course Courses @relation(fields: [courseId],references: [id])
 }

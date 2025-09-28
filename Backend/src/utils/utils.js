@@ -42,7 +42,6 @@ const generateAccessAndRefreshToken = async (userId) => {
         }
         const accessToken =await generateAccessToken(user)
         const refereshToken =await generateRefershToken(user)
-        console.log(accessToken,refereshToken)
         user.refershToken = refereshToken;
         await prisma.User.update({
             where: { id: user.id },
@@ -57,14 +56,14 @@ const generateAccessAndRefreshToken = async (userId) => {
 
 const accessTokenOptions = {
     httpOnly: true,
-    sameSite: 'none',
+    sameSite: 'lax',
     secure: false,
     maxAge: 86400000
 }
 
 const refreshTokenOptions = {
     httpOnly: true,
-    sameSite: 'none',
+    sameSite: 'lax',
     secure: false,
     maxAge: 86400000
 }
